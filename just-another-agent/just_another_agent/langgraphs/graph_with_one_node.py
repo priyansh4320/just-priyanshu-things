@@ -1,4 +1,5 @@
-from just_another_agent.schema import GraphState
+
+from just_another_agent.langgraphs.graph_schema import GraphState
 from langgraph.graph import StateGraph,END
 from dotenv import load_dotenv
 import os
