@@ -9,9 +9,11 @@ from langchain_core.tools import tool
 def get_model():
     return ChatOllama(model="llama3.2:latest",temperature="0.0")
 
+
 def create_agent(model,tools,prompt):
     agent = create_react_agent(model=model,tools=tools,prompt=prompt,state_schema=CustomGraphState,response_format=StructuredGraphState)
     return agent
+
 
 @tool
 def asistant_tool(input:str):
@@ -28,6 +30,7 @@ def asistant_tool(input:str):
     pprint(input)
     return input
 
+
 def llmgraph():
     model = get_model()
     prompt = """You are a helpful asistant that only helps in queiries related to stock market."""
@@ -40,6 +43,7 @@ def llmgraph():
     graph = workflow.compile(debug=True)
     return graph
 
+
 async def run_g():
     message = {"messages":['what is the stock symbol for Apple inc.?']}
     graph = llmgraph()
@@ -47,4 +51,4 @@ async def run_g():
     pprint(response)
 
 import asyncio
-asyncio.run(run_g())
+# asyncio.run(run_g())

@@ -13,8 +13,6 @@ MARKETSTACK_API_KEY=os.getenv("MARKETSTACK_API_KEY")
 workflow = StateGraph(GraphState)
 
 
-
-
 async def get_stock_info(GraphState):
     messages = GraphState['messages']
     stock_symbol = GraphState['stock_symbol']
@@ -22,12 +20,9 @@ async def get_stock_info(GraphState):
     params = {"access_key":MARKETSTACK_API_KEY}
     headers = {"Content-Type":"application/json"}
     response = requests.get(url,params=params,headers=headers)
-    
     result = response.json()
     messages.append(str(result))
     return {'messages':messages,"stock_symbol":stock_symbol}
-
-
 
 
 workflow.add_node("get_stock_details",get_stock_info)
@@ -39,7 +34,6 @@ state = {'messages':['hey there, can i get details for apple inc. stock'],'stock
 
 async def run_g():
     message = await graph.ainvoke(state)
-
     print(message)
 
 import asyncio
