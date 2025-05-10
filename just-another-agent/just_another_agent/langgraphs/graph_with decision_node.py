@@ -2,10 +2,6 @@ from langchain_ollama import ChatOllama
 from langgraph.prebuilt import create_react_agent
 from just_another_agent.langgraphs.graph_with_ollama_llm_node import asistant_tool
 from just_another_agent.langgraphs.graph_schema import CustomGraphState, StructuredGraphState
-from langgraph.graph import StateGraph, END, START
-from langchain_core.tools import tool
-from langgraph.prebuilt.chat_agent_executor import AgentState
-from langchain_core.messages import AIMessage
 from pprint import pprint
 from dotenv import load_dotenv
 import os
@@ -20,10 +16,12 @@ def get_model():
     """Get the model instance."""
     return ChatOllama(model="llama3.2:latest", temperature="0.0")
 
+
 def create_agent(model, tools, prompt): 
     """Create an agent with the specified model, tools, and prompt."""
     agent = create_react_agent(model=model, tools=tools, prompt=prompt, state_schema=CustomGraphState, response_format=StructuredGraphState)
     return agent
+
 
 async def get_stock_info(CustomGraphState):
     """Get stock information based on the provided GraphState."""
@@ -123,3 +121,4 @@ async def run_g():
 if __name__ == "__main__":
     import asyncio
     asyncio.run(run_g())
+ 
