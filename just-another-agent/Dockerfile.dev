@@ -1,0 +1,14 @@
+FROM python:3.13-bookworm
+
+RUN pip install --no-cache-dir poetry
+
+WORKDIR /app
+
+COPY README.md /app/
+COPY just_another_agent/ /app/
+COPY pyproject.toml poetry.lock  /app/
+
+RUN poetry config virtualenvs.create false
+RUN poetry install --no-root --no-interaction --no-ansi
+
+ENTRYPOINT ["python3","fastapi_server/server.py"]

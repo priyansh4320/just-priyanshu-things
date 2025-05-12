@@ -2,6 +2,7 @@ from langchain_ollama import ChatOllama
 from langgraph.prebuilt import create_react_agent
 from just_another_agent.langgraphs.graph_with_ollama_llm_node import asistant_tool
 from just_another_agent.langgraphs.graph_schema import CustomGraphState, StructuredGraphState
+from langgraph.graph import StateGraph, END
 from pprint import pprint
 from dotenv import load_dotenv
 import os
@@ -103,6 +104,7 @@ def llmgraph():
     workflow.add_edge("decision_node", "agent")
     workflow.add_edge("decision_node", "summarize_information")
     workflow.add_edge("agent","get_stock_details")
+
     # workflow.add_edge("get_stock_details")
     # workflow.add_edge("summarize_information")
 
